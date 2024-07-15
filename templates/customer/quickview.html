@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/view.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <p class="logo">Picmac</p>
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="/">Home</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="viewart">
+    <h1 class="section-title">View Arts</h1>
+    {% if artDetails %}
+    <div class="grid_container">
+      <div class="subcon1">
+        <div class="imagecon">
+          <img src="{{ artDetails.imageUrl }}" alt="ggh" srcset="" class="center">
+        </div>
+      </div>
+      <div class="subcon2">
+        <p class="artname">
+          {{ artDetails.artName }}
+        </p>
+        <p class="price">
+          <i class="fas fa-rupee-sign"></i>{{ artDetails.price }}
+        </p>
+        <p class="price">
+          Width: {{ artDetails.width }} {{ artDetails.dimension }}
+        </p>
+        <p class="price">
+          Height: {{ artDetails.height }} {{ artDetails.dimension }}
+        </p>
+        <p class="price">
+          Artist Name: {{ artDetails.firstName }} {{ artDetails.lastName }}
+        </p>
+        <div class="discon">
+          <p class="discription">
+            {{ artDetails.discription }}
+          </p>
+        </div>
+        {% if artDetails.status == 1 %}
+        <div class="buttons">
+          <form action="/customer/booknow" method="post">
+            {% csrf_token %}
+              <input type="hidden" value="{{ artDetails.id }}" name="artid">
+            <button type="submit" class="buy" name="booknowbtn">Buy</button>
+          </form>
+          <form action="" method="post">
+            <button type="submit" class="request">Request</button>
+          </form>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+    {% if reqDetail %}
+    <div class="grid_container">
+      <div class="subcon1">
+        <div class="imagecon">
+          {% if reqDetail.image and reqDetail.image != '' %}
+          <img src="{{ reqDetail.image }}" alt="ggh" srcset="" class="center">
+          {% else %}
+          <img src="{{ reqDetail.imageUrl }}" alt="ggh" srcset="" class="center">
+
+          {% endif %}
+        </div>
+      </div>
+      <div class="subcon2">
+        <p class="artname">
+          {{ reqDetail.artName }}
+        </p>
+        <p class="price">
+          <i class="fas fa-rupee-sign"></i>{{ reqDetail.reqPrice }}
+        </p>
+        <p class="price">
+          Width: {{ reqDetail.width }} {{ reqDetail.dimension }}
+        </p>
+        <p class="price">
+          Height: {{ reqDetail.height }} {{ reqDetail.dimension }}
+        </p>
+        <p class="price">
+          Artist Name: {{ reqDetail.firstName }} {{ reqDetail.lastName }}
+        </p>
+        <div class="discon">
+          <p class="discription">
+            {% if reqDetail.discription and reqDetail.discription != '' %}
+            {{ reqDetail.discription }}
+            {% else %}
+            {{ reqDetail.artDes }}
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+
+  </section>
+
+  {% if artistArts %}
+  <section id="Arts">
+   
+  
+    <div class="wrapper">
+      <div class="cards_wrap">
+        {% for i in artistArts %}
+  
+        <div class="card_item">
+          <div class="card_inner">
+            <div class="card_top works">
+              <div class="textdiv">
+                <img src="{{ i.imageUrl }}" alt="car" class="center"/>
+              </div>
+              <div class="info">
+               <form action="/customer/quickView" method="post">
+                {% csrf_token %}
+
+                <input type="hidden" value={{i.id}} name="artId">
+                 <input type="submit" value="Quick View" name="quickView">
+               </form>
+               <form action="/customer/booknow" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ i.id }}" name="artid">
+                <input type="submit" value="Book" name="booknowbtn">
+              </form>
+              <form action="" method="post">
+                <input type="submit" value="Request">
+              </form>
+              </div>
+            </div>
+            <div class="card_bottom">
+              <div class="card_category">
+                {{ i.artName }}
+              </div>
+              <h3 class="realprice">
+                <i class="fas fa-rupee-sign"></i>{{ i.price }}
+              </h3>
+              <div class="card_info">
+                <p class="title">{{ i.width }} x {{ i.height }} {{ i.dimension }}</p>
+                <p class="discription">
+                  {{ i.discription }}
+                </p>
+              </div>
+              <div class="card_creator">
+                By {{ i.firstName }} {{ i.lastName }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+  
+  
+        
+  
+  
+        
+  
+  
+  
+  
+      </div>
+    </div>
+ 
+   </section>
+   {% endif %}
+
+
+ 
+</body>
+</html>

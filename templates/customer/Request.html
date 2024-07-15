@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/request.css' %} " >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <p class="logo">Picmac</p>
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+         <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="/">Home</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="viewrequest">
+      <div class="inner_cotainer">
+        <div class="error">
+          <!-- <p>/* Invalid details */</p> -->
+        </div>
+          
+        <h2 class="sitename">
+          PicMac
+        </h2>
+        <h2 class="discrip">
+          Request An Art
+        </h2>
+        <div class="formcon">
+          <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <input type="hidden" name="artId" value="{{artDetails.id}}">
+            <input type="text"  placeholder="Art name" required value="{{artDetails.artName}}" disabled>
+            
+            <input type="text"  placeholder="Art Price" required value="{{artDetails.price}}" pattern="[0-9]{1,7}" title="Invalid Price" name="price">
+
+            <!-- <label for="num">91</label>
+            <input type="number"  placeholder="Phone Number" required minlength="10" maxlength="10" class="num"> -->
+
+            <input type="number" placeholder="Art Width" value="{{artDetails.width}}" required  pattern="[0-9]+" title="Invalid Width" name="width">
+
+            <input type="number" placeholder="Art Height" value="{{artDetails.height}}" required  pattern="[0-9]+" title="Invalid Height" name="height">
+
+            <select  name="dim" onclick="Myfun()" id="temp" required >
+                <option selected value="0" >Choose Diamention</option>
+                <option value="cm">CM</option>
+                <option value="in">Inch</option>
+            </select>
+
+            <p class="text">Choose Any image for the Drawing (optional)</p>
+            <input type="file" name="img" id="img" accept="images/*" >
+            <textarea id="subject" name="subject" placeholder="Discription(optional)" style="height:100px"></textarea>
+
+            
+
+            <button type="submit" name="finalReqBtn"> Submit </button>
+          </form>
+        </div>
+
+          
+      </div>
+  </section>
+  <script>
+    function Myfun() {
+      var first=document.getElementById("temp");
+      first.style.color="#e84118";
+    }
+  </script>
+</body>
+</html>

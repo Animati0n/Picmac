@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" placeholder="username" name="username" />
+      <button name="unamesubmit" type="submit">submit</button>
+    </form>
+    <br><br>
+    {% if otpp %}
+    <form action="" method="post">
+      {% csrf_token %}
+    
+      <input type="hidden" value={{username}} name="username">
+      <input type="text" name="otp" placeholder="your otp">
+      <button type="submit" name="otpsubmit">next</button>
+  
+    </form>
+  {% endif %}
+<br><br>
+    {% if reg %}
+    <form action="" method="post">
+      {% csrf_token %}
+        <input type="hidden" value={{username}} name="username">
+      <input type="text" name="password" placeholder="password">
+      <button type="submit" name="register">register</button>
+
+    </form>
+    {% endif %}
+    </div>
+    <br><br><br>
+    
+     {% if hai %}
+    <form action="" method="post">
+       {% csrf_token %}
+       <input type="hidden" value={{username}} name="username">
+      <input type="text" name="pwd" placeholder="pwd">
+      <button type="submit" name="login">Login</button>
+     </form>
+     {% endif %}
+ 
+{% if msg %}
+<center> <h1 style="color: black;">{{ur}}</h1></center>
+<center> <h1 style="color: black;">{{msg}}</h1></center>
+ {% endif %}
+</div>
+  </body>
+</html>

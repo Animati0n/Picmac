@@ -1,0 +1,942 @@
+
+
+<!DOCTYPE html>
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <title>PicMac</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap-4.3.1.css' %}">
+  <link rel="stylesheet" href="{% static 'css/artistdash.css' %}">
+  <!-- Boxicons CDN Link -->
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  {% if alert and alert == 1 %}
+  <script>
+    alert('Your art uploaded successfully');
+  </script>
+  {% endif %}
+  {% if alert and alert == 2 %}
+  <script>
+    alert('Your art deleted successfully');
+  </script>
+  {% endif %}
+
+  {% if alert and alert == 3 %}
+  <script>
+    alert('Your art updated successfully');
+  </script>
+  {% endif %}
+
+  {% if alert and alert == 4 %}
+  <script>
+    alert('Your Profile updated successfully');
+  </script>
+  {% endif %}
+
+  {% if alert and alert == 5 %}
+  <script>
+    alert('Your Art successfully set to available');
+  </script>
+  {% endif %}
+
+  {% if alert and alert == 6 %}
+  <script>
+    alert('Your Request updated successfully');
+  </script>
+  {% endif %}
+  <div id="custemp" style="display: none;" >{{page}}</div>
+ 
+  <div class="sidebar">
+    <div class="logo-details">
+      <span class="logo_name">PicMac</span>
+    </div>
+    <form action="" method="get">
+      <ul class="nav-links">
+        <li>
+          <a class="link1" href="store">
+            <p >
+              <i class='bx bx-store-alt' ></i>
+              <h4 class="sidetext" >My Store</h4> 
+            </p>
+           
+          </a>
+        </li>
+        <li>
+          <a class="link1" href="earnings">
+            <p >
+              <i class='bx bx-wallet-alt' ></i>
+              <h4 class="sidetext" >My Earnings</h4> 
+            </p>
+          </a>
+
+        </li>
+        <li>
+          <a class="link1" href="subscription">
+            <p >
+              <i class='bx bx-receipt' ></i>
+              <h4 class="sidetext" >View Subscription</h4> 
+            </p>
+            
+           
+          </a>
+        </li>
+        <li>
+          <a class="link1" href="requests">
+            <p >
+              <i class='bx bx-list-ul' ></i>
+              <h4 class="sidetext" >Requests</h4> 
+            </p>
+            
+          </a>
+        </li>
+        <li>
+
+          <a class="link1" href="profile" >
+            <p >
+              <i class='bx bx-user' ></i>
+              <h4 class="sidetext" >My Profile</h4> 
+            </p>
+           
+          </a>
+
+
+
+        </li>
+        <li class="">
+          <a href="/logout">
+            <i class='bx bx-log-out'></i>
+            <h4 class="sidetext">Logout</h4> 
+           
+          </a>
+        </li>
+      </ul>
+    </form>
+  </div>
+
+  <!-- Mystore -->
+
+  <section id="first" class="firstsec">
+    <div class="maincon">
+        
+    {% if exp == 1 %}
+      <div class="container" style="padding-top: 5px;">
+        <div  class="alert alert-danger "  role="alert" style="text-align: center; " >
+  your subscription is expired.... 
+  <a href="subscription/page">Renew now</a>
+  <!-- <form action="" method="post">
+    {% csrf_token %}
+    <input type="text" hidden>
+    <input type="submit" name="setrenew" value="Renew now" style="padding: 5px 10px; outline: none; color: white; background: #000;">
+  </form> -->
+</div>
+      </div>
+{%endif%}
+
+      <h1 class="section-title">My Store</h1>
+      <h5 class="formtitle">Upload Arts</h5>
+      <div class="container ">
+        <div class="form_div">
+          <form class="needs-validation"  action=""
+            method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" id="validationCustom01" placeholder="Art Name" value=""
+                  name="artname" pattern="[A-Z a-z]{1,15}" title="only alphabets" required />
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+  
+                <input type="text"  class="form-control" id="validationCustom02" placeholder="Price" 
+                  name="artprice" required pattern="[0-9]{1,7}" title="over limit">
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="form-row">
+              <div class="col-md-4 mb-3">
+  
+                <input type="text" class="form-control" id="validationCustom03" pattern="[0-9]{1,3}" placeholder="Width" name="artwidth"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+  
+                <input type="text" class="form-control" id="validationCustom04" pattern="[0-9]{1,3}" placeholder="Height" name="artheight"
+                  required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+  
+                <select class="custom-select" id="validationCustom03" name="artdiatype" required>
+                  <option selected disabled value="">Select Dimension type</option>
+                  <option value="in">Inch</option>
+                  <option value="cm">Centimeter</option>
+  
+                </select>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+              </div>
+  
+            </div>
+  
+            <div class="form-row">
+              <div class="col-md-6 mb-12">
+  
+                <!-- <input type="text" class="form-control" id="validationCustom05" placeholder="Type"  required > -->
+                <select class="custom-select" id="validationCustom04"  name="category" required>
+                  <option selected disabled value="">Select Category</option>
+  
+                    {% for i in catalist %} 
+                      <option value={{i.categoryname}}>{{i.categoryname}}</option>
+                      <!-- <option value="HAIIII"> NEW VALUE</option> -->
+                   {%endfor%}
+  
+                </select>
+                <div class="invalid-feedback">
+                  Please fill the Type of your Art.....
+                </div>
+              </div>
+  
+              <div class="col-md-6 mb-12">
+                <input type="file" class="form-control " aria-label="file example" required name="artimage"
+                  style="cursor: pointer;" accept="images/*">
+                <div class="invalid-feedback">Example invalid form file feedback</div>
+              </div>
+  
+            </div>
+            <br>
+            <div class="form-group">
+  
+              <textarea class="form-control" id="validationCustom05" rows="2" required placeholder="Discription"
+                pattern="[A-Za-z]{3}" title="Three letter country code" name="discription"></textarea>
+              <div class="invalid-feedback">
+                Please enter discription of your art
+              </div>
+            </div>
+  
+  
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                <label class="form-check-label" for="invalidCheck">
+                  Agree to terms and conditions
+                </label>
+                <div class="invalid-feedback">
+                  You must agree before submitting.
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-6">
+                <button class="subbtn" type="submit" name="UploadArt">Submit</button>
+              </div>
+  
+              <!-- <div class="col-md-4"></div>
+            </div> -->
+          </form>
+  
+          <!-- <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function () {
+              'use strict'
+  
+              // Fetch all the forms we want to apply custom Bootstrap validation styles to
+              var forms = document.querySelectorAll('.needs-validation')
+  
+              // Loop over them and prevent submission
+              Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                  form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                      event.preventDefault()
+                      event.stopPropagation()
+                    }
+  
+                    form.classList.add('was-validated')
+                  }, false)
+                })
+            })()
+  
+          </script> -->
+        </div>
+      </div>
+
+      <br>
+
+      <br>
+  
+      <!-- Arts view section -->
+      <h5 class="formtitle">Your Arts</h5>
+      <div class="alert alert-warning text-center editalert" role="alert" >
+        Your arts will be shown to users after the approval
+      </div>
+      <div class="wrapper">
+        <div class="cards_wrap">
+
+          {% for i in artslist %}
+          <div class="card_item">
+            <div class="card_inner">
+              
+              {% if i.status == 1 %}
+              <div class="alert alert-success text-center" role="alert">
+                Approved
+              </div>
+              {% elif i.status == 2 %}
+              <div class="alert alert-warning text-center" role="alert">
+                Sold out
+              </div>
+              {% else %}
+              <div class="alert alert-danger text-center" role="alert">
+                Not Approved
+              </div>
+              {% endif %}
+              
+              <div class="card_top works">
+                <div class="textdiv">
+                  <img src={{i.imageUrl}} alt="car" class="center"/>
+                </div>
+                <div class="info">
+  
+                  <form action="" method="post">
+                   {% csrf_token %}
+                    <input type="hidden"  name="id" value={{i.id}} >
+                    <input type="submit" value="Edit" name="edit"  >
+                  </form>
+                </div>
+              </div>
+              <div class="card_bottom">
+                <div class="card_category">
+                  {{i.artName}}
+                  <h3 class="realprice">
+                    <i class="fa fa-inr" aria-hidden="true"></i>
+                    {{i.price}}
+                  </h3>
+                  <!-- <div class="offerset">
+                  
+                  <h3 class="priceoff">
+                    <i class="fa fa-inr" aria-hidden="true"></i>6000
+                  </h3>
+                  <h3 class="offerpersen">
+                    -50% off
+                  </h3>
+                </div> -->
+                </div>
+                <div class="card_info">
+                  <p class="title text-center">
+                   {{i.width}}x{{i.height}}{{i.dimension}}
+                  </p>
+                  <p style="text-align: center;" >{{i.catname}}</p>
+                  <p class="discription1 text-center">
+                   {{i.discription}}
+                  </p>
+                </div>
+                <div class="card_creator">
+                  <form action="" method="post" class="delete">
+                    {% csrf_token %}
+                    <input type="hidden" value={{i.id}} name="artId">
+                    <input type="submit" value="Delete" name="delbtn">
+                    <!-- <input type="submit" value="Set Available" name="setAv"> -->
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+              {% endfor %}
+
+
+          <!-- <div class="card_item">
+            <div class="card_inner">
+  
+              <div class="alert alert-success text-center" role="alert">
+                Approved
+              </div>
+              <div class="alert alert-danger text-center" role="alert">
+                Not Approved
+              </div>
+              <div class="card_top works">
+                <div class="textdiv">
+                  <img src="uploadimages/1.jpg" alt="car" class="center"/>
+                </div>
+                <div class="info">
+  
+                  <form action="" method="get">
+                    <input type="hidden" >
+                    <input type="submit" value="Edit" id="anger" name="edit" onclick="Myfun(temp=6)">
+                  </form>
+                </div>
+              </div>
+              <div class="card_bottom">
+                <div class="card_category">
+                  artname
+                  <h3 class="realprice">
+                    <i class="fa fa-inr" aria-hidden="true"></i>
+                    60000
+                  </h3>
+                  < <div class="offerset">
+                  
+                  <h3 class="priceoff">
+                    <i class="fa fa-inr" aria-hidden="true"></i>6000
+                  </h3>
+                  <h3 class="offerpersen">
+                    -50% off
+                  </h3>
+                </div> 
+                </div>
+                <div class="card_info">
+                  <p class="title text-center">
+                   150x150cm
+                  </p>
+                  <p class="discription1 text-center">
+                    vjddbvi  hvhka ga ,k eufgwef w
+                  </p>
+                </div>
+                <div class="card_creator">
+                  <form action="" method="get" class="delete">
+                    <input type="hidden" value="" name="artId">
+                    <input type="submit" value="Delete" name="delete_art">
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div> -->
+      
+  
+        </div>
+      </div>
+
+
+    </div>
+    
+  </section>
+
+
+  <!-- my-earnings -->
+  <section id="second1" class="secnsec">
+    <div class="maincon">
+
+      <h1 class="section-title">My Earnings</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3"></div>
+          <div class="col-md-6">
+            <div class="container totalsec">
+      
+              <h3 class="total">Total Earnings</h3>
+              <h4 class="ernprice"><i class="fa fa-inr" aria-hidden="true"></i> {{ total.total }}</h4>
+              
+      
+            </div>
+          </div>
+          <div class="col-md-3"></div>
+        </div>
+      </div>
+
+      <div class="container">
+
+        <table class="table" style="margin-bottom: 50px;">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Art Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Payment Type</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in bookings %}
+            <tr>
+              <td>{{ i.fname }} {{ i.lname }}</td>
+              <td>{{ i.artName }}</td>
+              <td>{{ i.price }}</td>
+              <td>Internet Banking</td>
+            
+            </tr>
+            {% endfor %}
+          
+          </tbody>
+        </table>
+      
+      </div>
+      
+
+
+    </div>
+    
+  </section>
+ 
+
+
+  <!-- Subscription -->
+  
+  <section id="third" class="thridsec">
+    <div class="maincon">
+
+      <h1 class="section-title">Subscriptions</h1>
+    <div class="container">
+      <table class="table" style="margin-bottom: 100px;">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Plan Name</th>
+            <th scope="col">Bill Date</th>
+            <th scope="col">Expiary Date </th>
+            <th scope="col">Status </th>
+           
+            <th scope="col">Action </th>
+            
+
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              {{subdetails.subname}}
+            </td>
+            <td>
+              {{subdetails.subdate}}
+            </td>
+            <td>
+             {{subdetails.expiredate}}
+            </td>
+            {% if subdetails.status == 1 %}
+            <td>
+              active
+            </td>
+           {% else %}
+           <td>
+              expired
+            </td>
+            <td>
+             <a class="btn btn-danger"
+                href="subscription/page">Renew</a>
+              
+            </td> 
+           {% endif %}
+            
+            
+
+          </tr>
+  
+
+
+        </tbody>
+      </table>
+
+    </div>
+
+
+
+
+
+    </div>
+  </section>
+
+
+
+  <!-- Requests -->
+
+  <section id="fourth" class="fourthsec">
+    <div class="maincon">
+      <h1 class="section-title">Requests</h1>
+    <div class="container">
+
+    
+     <!-- <h3>No requests</h3> -->
+    
+    <table class="table" style="margin-bottom: 100px;">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Customer Email</th>
+          <th scope="col">Art Type</th>
+          <th scope="col">Dimension</th>
+          <th scope="col">Image</th>
+          <th scope="col">Price</th>
+          <th scope="col">Status</th>
+          <th scope="col"></th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in allrequests %}
+        <tr>
+          <td>{{ i.username }}</td>
+          <td>{{ i.catname }}</td>
+          <td>{{i.width}}x{{i.height}} {{i.dimension}}</td>
+          <td>
+               {% if i.image and i.image != '' %}
+               <a href='{{i.image}}' target=_blank>Image</a>
+               {% else %}
+               <a href='{{i.imageUrl}}' target=_blank>Image</a>
+               {% endif %}
+               
+            
+               
+              
+          </td>
+          <td>{{i.reqPrice}}</td>
+
+          <td>
+            {% if i.status == 1 %}
+             Requested
+            {% endif %}
+
+            {% if i.status == 2 %}
+             Approved
+            {% endif %}
+
+            {% if i.status == 3 %}
+             Rejected
+            {% endif %}
+          </td>
+          <td>
+           {% if i.status == 1 %}
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="reqid" value="{{i.id}}" >
+              <input type="submit" value="Approve" class ="btn btn-success" name="apprBtn">
+              <input type="submit" value="Reject" class ="btn btn-danger" name="rejBtn">
+            </form>
+          {% endif %}  
+           
+        </td>
+        </tr>
+        {% endfor %}
+       
+      </tbody>
+    </table>
+   
+    
+    
+   </div>
+
+
+    </div>
+   
+  </section>
+
+  <!-- Myprofile -->
+ 
+  <section id="fifth" class="fifthsec">
+    <div class="maincon">
+
+      <h1 class="section-title">My Profile</h1>
+    <div class="profilediv">
+      <img src="{% static 'images/profile.png'%}" class="profile">
+    </div>
+    <div class="container">
+      <div class="myprofile_form_div">
+        <form method="post" action="" >
+           {% csrf_token %}
+          <div class="row form-group">
+            
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="fname" placeholder="FirstName" required  value={{userdata.firstName}} 
+                 >
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="lname" placeholder="Last name"  required value={{userdata.lastName}}
+                 >
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="email" class="form-control" disabled name="email" placeholder="Email" required value={{userdata.username}} >
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="phno" placeholder="Phone Number" required value={{userdata.phone}} required pattern="[0-9]{1,10}" title="over limit">
+            </div>
+          </div>
+         
+          
+          <br>
+          <div class="form-group ">
+            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" required rows="2"
+              placeholder="Address" >{{userdata.address}}</textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              
+              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" required name="dis">
+                
+                {% for i in dislist %}
+                {% if i == userdata.district %} 
+                <option selected value={{i}}>{{i}}</option>
+                {% else %}
+                <option value={{i}}>{{i}}</option>
+                {%endif %}
+                {%endfor%}
+                <!-- <option selected value="0">District</option>
+                <option value="Alappuzha">Alappuzha</option>
+                <option value="Ernakulam">Ernakulam</option>
+                <option value="Idukki">Idukki</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Kasaragod">Kasaragod</option>
+                <option value="Kollam">Kollam</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+                <option value="Malappuram">Malappuram</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Pathanamthitta">Pathanamthitta</option>
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Thrissur">Thrissur</option>
+                <option value="Wayanad">Wayanad</option> -->
+
+              </select>
+            </div>
+            
+            <!-- <div class="col-md-6">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+              <option selected>State</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div> -->
+
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <input type="submit" value="Submit" style="width: 100%;" name="profileUpdate">
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
+    </div>
+  </section>
+ 
+  <!-- view edit section -->
+  
+  <section id="sixth" class="sixthsec">
+    <div class="maincon">
+
+      <h1 class="section-title">View</h1>
+    <div class="container">
+      <div class="inner_container">
+        <form action="" method="post"
+          enctype="multipart/form-data">
+          {% csrf_token %}
+
+
+          <div class="row">
+            <div class="col-md-6 ">
+
+              <div class="imagediv">
+                <img src="{{editart.imageUrl}}" alt="" srcset="" class="center" id="editImage">
+              </div>
+              <div class="changeimage">
+                <input type="file" name="artimage" id="file2" value="pic image" accept="image/*" onchange="getFile(event)">
+                <label for="file2"><img src="{% static 'images/camera.png'%}"
+                    style=" width:60px; height: 60px; cursor: pointer;"></label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="artname">
+                <label>Art Name</label>
+                <div class="inputedit">
+                  <input type="text" name="artname" id="" value="{{editart.artName}}" required>
+                  <input type="hidden" name="artId" value="" >
+
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Price</label>
+                <div class="inputedit">
+                  <input type="text" name="artprice" id="" value="{{editart.price}}" required >
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Width</label>
+                <div class="inputedit">
+                  <input type="text" name="artwidth" id="" value="{{editart.width}}" required >
+                </div>
+              </div>
+              <div class="artname">
+                <label>Height</label>
+                <div class="inputedit">
+                  <input type="text" name="artheight" id="" value="{{editart.height}}" required>
+                </div>
+              </div>
+              <div class="artname">
+                <label>Diamention</label>
+                <div class="inputedit">
+                  <select class="custom-select" name="artdiatype" required>
+                    {% if editart.dimension == 'in' %}
+                    <option  selected value="in">Inch</option>
+                    <option value="cm">Centimeter</option>
+
+                    {% else %}
+                    <option selected value="cm">Centimeter</option>
+                    <option   value="in">Inch</option>
+                    {%endif%}
+                  </select>
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Type</label>
+                <div class="inputedit">
+
+                  <select class="custom-select" id="validationCustom04" required name="catogery">
+                    {% for i in catalist %}
+                {% if i.categoryname == editart.catname %} 
+                <option selected value={{i.categoryname}}>{{i.categoryname}}</option>
+                {% else %}
+                <option value={{i.categoryname}}>{{i.categoryname}}</option>
+                {%endif %}
+                {%endfor%}
+                  
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Discription</label>
+                <div class="inputedit">
+                  <textarea name="discription" id="" rows="2" >{{editart.discription}}</textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row" style="margin-top: 50px;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 editsubmit">
+              <input type="text" name="id" value={{editart.id}} hidden>
+              <input type="submit" value="Submit" style="width: 100%;" name="editSub">
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+
+   <script>
+   try{ document.getElementById("anger").addEventListener("click", function(event){
+   event.preventDefault()
+    });}
+    catch {
+
+    }
+
+    const editImage = document.getElementById("editImage");
+    const file2 = document.getElementById("file2");
+
+    function getImgData() {
+      const files = file2.files[0];
+      if (files) {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(files);
+        fileReader.addEventListener("load", function () {
+          editImage.setAttribute("src",this.result)
+        });    
+      }
+    }
+    function getFile(event){
+      getImgData();  
+    }
+    let temp = document.getElementById("custemp").innerText;
+    temp=parseInt(temp)
+    // function Myfun(temp) {
+            console.log(temp);
+            var sec1=document.getElementById("first");
+            var sec2=document.getElementById("second1");
+            var sec3=document.getElementById("third");
+            var sec4=document.getElementById("fourth");
+            var sec5=document.getElementById("fifth");
+            var sec6=document.getElementById("sixth");
+            if (temp==1) {
+                sec1.style.display="block";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none"; 
+            
+            }else if (temp==2) {
+                sec2.style.display="block";
+                sec1.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none";
+            }else if (temp==3) {
+                sec3.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none";
+            }else if (temp==4) {
+                sec4.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none";
+            }
+            else if (temp==5) {
+                sec5.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec6.style.display="none";
+            }else if (temp==6) {
+                sec6.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+            }
+    // }
+
+
+
+
+
+  </script> 
+ 
+
+
+</body>
+
+</html>

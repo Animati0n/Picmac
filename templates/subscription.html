@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="{% static 'css/bootstrap-4.3.1.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/subscription.css'%}" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2 class="mainheading">Subscription plan</h2>
+        <h3 class="subheading">Choose Your plan</h3>
+      </div>
+      <div class="row">
+        {% if pagestatus == 1 %}
+        <div class="col-md-4">
+          <div class="card2">
+            <h1 class="logo">
+              <i class="mdi mdi-cube-outline pricing-plan-icon"></i>
+            </h1>
+            <h2 class="planname">Basic</h2>
+            <h2 class="price">FREE</h2>
+            <h4 class="first">Free trial for 1 month</h4>
+            <h4 class="second">Limited Arts upload</h4>
+            <h4 class="third">Limited views</h4>
+            <h4 class="fouth">Limited delete</h4>
+            <h4 class="fiveth">Limited account</h4>
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="sub_id" value="1" />
+
+              <button type="submit" class="freebtn" name="sub-btn">Free</button>
+            </form>
+          </div>
+        </div>
+        {% endif %}
+        <div class="col-md-4">
+          <div class="card1">
+            <h1 class="logo1">
+              <i class="mdi mdi-trophy pricing-plan-icon"></i>
+            </h1>
+            <h2 class="planname">Pro</h2>
+            <h2 class="price">
+              <i
+                class="fa fa-inr"
+                aria-hidden="true"
+                style="font-size: 2rem"
+              ></i>
+              1199
+            </h2>
+            <h4 class="first">For 6 month plan</h4>
+            <h4 class="second">Unlimited Arts upload</h4>
+            <h4 class="third">Unlimited views</h4>
+            <h4 class="fouth">Unlimited delete</h4>
+            <h4 class="fiveth">Unlimited account</h4>
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="sub_id" value="2" />
+              <button type="submit" class="buy1btn" name="sub-btn">Buy</button>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card2">
+            <h1 class="logo2">
+              <i class="mdi mdi-wallet-giftcard pricing-plan-icon"></i>
+            </h1>
+            <h2 class="planname">Ultimate</h2>
+            <h2 class="price">
+              <i
+                class="fa fa-inr"
+                aria-hidden="true"
+                style="font-size: 2rem"
+              ></i>
+              2000
+            </h2>
+            <h4 class="first">For 1 year plan</h4>
+            <h4 class="second">Unlimited Arts upload</h4>
+            <h4 class="third">Unlimited views</h4>
+            <h4 class="fouth">Unlimited delete</h4>
+            <h4 class="fiveth">Unlimited account</h4>
+            <form action="" method="post">
+              {% csrf_token %}
+              <input type="hidden" name="sub_id" value="3" />
+              <button type="submit" class="buy2btn" name="sub-btn">Buy</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

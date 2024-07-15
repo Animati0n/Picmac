@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'siteauth/artistExtra.css' %}" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <p class="logo">Picmac</p>
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+         <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="/">Home</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="viewrequest">
+      <div class="inner_cotainer">
+        <div class="error">
+          <!-- <p>/* Invalid details */</p> -->
+        </div>
+          
+        <h2 class="sitename">
+          PicMac
+        </h2>
+        <h2 class="discrip">
+          Booking Betails
+        </h2>
+        <div class="formcon">
+          {% if error %}
+          <div>
+            {{error}}
+          </div>
+          {% endif %}
+          <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="artid" value="{{ artid }}">
+            {% if udetail.firstName %}
+            
+                  <input type="text"  placeholder="First name" required name="firstName" value={{udetail.firstName}} required pattern="[A-Z a-z]+" title="only alphabets">
+
+            {% else %}
+
+            <input type="text"  placeholder="First name" required name="firstName" pattern="[A-Z a-z]+" title="only alphabets">
+            {% endif%}
+
+            {% if udetail.lastName %}
+            <input type="text"  placeholder="Last name" required name="lastName" value={{udetail.lastName}} pattern="[A-Z a-z]+" title="only alphabets">
+            {% else %}
+            <input type="text"  placeholder="Last name" required name="lastName" pattern="[A-Z a-z]+" title="only alphabets">
+            {% endif %}
+
+
+            <label for="num">91</label>
+            {% if udetail.phone %}
+            <input type="number" name="phone"  placeholder="Phone Number" required minlength="10" maxlength="10" class="num" value={{udetail.phone}} pattern="[0-9]{1,10}" title="Invalid phone">
+            {% else %}
+            <input type="number" name="phone"  placeholder="Phone Number" required minlength="10" maxlength="10" class="num" pattern="[0-9]{1,11}" title="Phone invalid" pattern="[0-9]{1,10}" title="Invalid phone">
+            {% endif %}
+
+            {% if udetail.pincode %}
+            <input type="number"  placeholder="Pincode" required minlength="6" maxlength="6" name="pincode" pattern="[0-9]{1,7}" title="Invalid pin" value="{{ udetail.pincode }}">
+            {% else %}
+            <input type="number"  placeholder="Pincode" required minlength="6" maxlength="6" name="pincode" pattern="[0-9]{1,7}" title="Invalid Pin">
+            {% endif %}
+
+
+            {% if udetail.landmark %}
+            <input type="text"  placeholder="Land mark" required name="landmark" value={{udetail.landmark}}>
+            {% else %}
+            <input type="text"  placeholder="Land mark" required name="landmark">
+            {% endif %}
+
+
+            {% if udetail.address %}
+            <textarea id="subject" placeholder="Address" style="height:100px" required name="address">{{udetail.address}}</textarea>
+            {% else %}
+            <textarea id="subject" placeholder="Address" style="height:100px" required name="address"></textarea>
+            {% endif %}
+
+            
+            <select  name="dis" onclick="Myfun()" id="temp">
+              <option selected value="0" >District</option>
+              {% for i in dislist %}
+                {% if i == udetail.district %}
+                  <option selected value={{i}}>{{i}}</option>
+                {% else %}
+                  <option value={{i}}>{{i}}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            
+
+            <button type="submit" name="booknowbtn2"> Submit </button>
+          </form>
+
+
+
+         
+        </div>
+
+          
+      </div>
+  </section>
+  <script>
+    function Myfun() {
+      var first=document.getElementById("temp");
+      first.style.color="#e84118";
+    }
+  </script>
+</body>
+</html>

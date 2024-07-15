@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/myrequest.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <p class="logo">Picmac</p>
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="/">Home</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  {% if myordersList %}
+
+  <section id="viewrequest">
+    {% for i in myordersList %}
+    <div class="inner_cotainer">
+        <div class="row">
+           <div class="imagediv">
+             <img src="{{ i.imageUrl }}" alt="" srcset="" class="center">
+           </div>
+           <div class="details">
+             
+               <p class="status">
+                 Delivered in 3 Working Days
+               </p>
+          
+             <p class="imagename">
+               {{ i.artName }}
+             </p>
+             <p class="price">
+              <i class="fas fa-rupee-sign"></i>{{i.price}}
+             </p>
+             <p class="artistname">
+               {{ i.firstName }} {{ i.lastName }}
+             </p>
+             <form action="/customer/quickView" method="post">
+              {% csrf_token %}
+               <div class="btndiv">
+                <input type="hidden" value={{i.artID}} name="artId">
+                <button type="submit" class="viewbtn" name="quickView">View</button>
+                <!-- <button type="submit" class="chatbtn">Chat</button> -->
+              </div>
+             </form>
+             
+           </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+
+</section>
+  {% endif %}
+
+
+  {% if myReqList %}
+
+  <section id="viewrequest">
+    {% for i in myReqList %}
+    <div class="inner_cotainer">
+        <div class="row">
+           <div class="imagediv">
+             {% if i.image and i.image != '' %}
+             <img src="{{ i.image }}" alt="" srcset="" class="center">
+             {% else %}
+             <img src="{{ i.imageUrl }}" alt="" srcset="" class="center">
+             {% endif %}
+             
+           </div>
+           <div class="details">
+             
+               <p class="status">
+                 {% if i.status == 1 %}
+                    Not Approved
+                 {% endif %}
+                 {% if i.status == 2 %}
+                    Delivered in 3 Working days
+                 {% endif %}
+
+                 {% if i.status == 3 %}
+                    Rejected
+                 {% endif %}
+               </p>
+          
+             <p class="imagename">
+               {{ i.artName }}
+             </p>
+             <p class="price">
+              <i class="fas fa-rupee-sign"></i>{{ i.reqPrice }}
+             </p>
+             <p class="artistname">
+               {{ i.firstName }} {{ i.lastName }}
+             </p>
+             <form action="/customer/quickView" method="post">
+              {% csrf_token %}
+               <div class="btndiv">
+                <input type="hidden" value={{i.id}} name="reqId">
+                <button type="submit" class="viewbtn" name="quickViewreq">View</button>
+                <!-- <button type="submit" class="chatbtn">Chat</button> -->
+              </div>
+             </form>
+             
+           </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+
+</section>
+  {% endif %}
+
+  {% if not myordersList and not myReqList %}
+  <section>
+
+    Oops, No Data Please come back later
+  </section>
+  {% endif %}
+  
+</body>
+</html>

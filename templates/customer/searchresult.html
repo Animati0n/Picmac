@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/searchresult.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <p class="logo">Picmac</p>
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="/">Home</a>
+        <!-- <a href="#" class="current">Arts</a> -->
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="Arts">
+    <h1 class="section-title">Arts</h1>
+  
+    <div class="wrapper">
+      <div class="cards_wrap">
+  
+  {% if artList %}
+        {% for i in artList %}
+        <div class="card_item">
+          <div class="card_inner">
+            <div class="card_top works">
+              <div class="textdiv">
+                <img src="{{i.imageUrl}}" alt="car" class="center"/>
+              </div>
+              <div class="info">
+                <form action="/customer/quickView" method="post">
+                  {% csrf_token %}
+    
+                  <input type="hidden" value={{i.id}} name="artId">
+                   <input type="submit" value="Quick View" name="quickView">
+                 </form>
+                 <form action="/customer/booknow" method="post">
+                  {% csrf_token %}
+                 <input type="hidden" value="{{ i.id }}" name="artid">
+                 <input type="submit" value="Book" name="booknowbtn">
+               </form>
+               <form action="/customer/requestnow" method="post">
+                {% csrf_token %}
+  
+                <input type="hidden" value={{i.id}} name="artId">
+                <input type="submit" value="Request" name="requestBtn">
+              </form>
+              </div>
+            </div>
+            <div class="card_bottom">
+              <div class="card_category">
+                {{i.artName}}
+              </div>
+              <div>
+                
+                Category:{{i.catname}} 
+              </div>
+              <h3 class="realprice">
+                <i class="fas fa-rupee-sign"></i>{{i.price}}
+              </h3>
+              <div class="card_info">
+                <p class="title">{{i.width}} x {{i.height}} cm</p>
+                <p class="discription">
+                  {{i.dimension}}
+                </p>
+              </div>
+              <div class="card_creator">
+                By {{i.firstName}} {{i.lastName}}
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+  {% else %}
+   No Arts found      
+  {% endif %}      
+  
+  
+        
+  
+  
+        
+  
+  
+  
+  
+      </div>
+    </div>
+ 
+   </section>
+
+ 
+</body>
+</html>

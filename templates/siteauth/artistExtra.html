@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'siteauth/artistExtra.css' %}" >
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <p class="logo">Picmac</p>
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+         <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="#">Home</a>
+        
+      </div>
+    </div>
+  </nav>
+
+  <!-- Home -->
+  <section id="viewrequest">
+      <div class="inner_cotainer">
+        <div class="error">
+          <!-- <p>/* Invalid details */</p> -->
+        </div>
+          
+        <h2 class="sitename">
+          PicMac
+        </h2>
+        <h2 class="discrip">
+          Booking Betails
+        </h2>
+        <div class="formcon">
+          <form action="" method="post">
+        {% csrf_token %} 
+
+            <input type="hidden" name="username" value={{username}}>
+            <input type="text" name="firstName"  placeholder="First name" required >
+            
+            <input type="text" name="lastName"  placeholder="Last name" required >
+
+            <label for="num">91</label>
+            <input type="number"  placeholder="Phone Number" required minlength="10" maxlength="10" class="num" name="phone">
+
+            <textarea id="subject" name="address" placeholder="Address" style="height:100px" required></textarea>
+            <select  name="dis" onclick="Myfun()" id="temp">
+              <option selected value="0" >District</option>
+              <option value="Alappuzha">Alappuzha</option>
+              <option value="Ernakulam">Ernakulam</option>
+              <option value="Idukki">Idukki</option>
+              <option value="Kannur">Kannur</option>
+              <option value="Kasaragod">Kasaragod</option>
+              <option value="Kollam">Kollam</option>
+              <option value="Kottayam">Kottayam</option>
+              <option value="Kozhikode">Kozhikode</option>
+              <option value="Malappuram">Malappuram</option>
+              <option value="Palakkad">Palakkad</option>
+              <option value="Pathanamthitta">Pathanamthitta</option>
+              <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+              <option value="Thrissur">Thrissur</option>
+              <option value="Wayanad">Wayanad</option>
+
+            </select>
+
+            <button type="submit" name="artistExtraBtn"> Submit </button>
+          </form>
+        </div>
+
+          
+      </div>
+  </section>
+  <script>
+    function Myfun() {
+      var first=document.getElementById("temp");
+      first.style.color="#e84118";
+    }
+  </script>
+</body>
+</html>

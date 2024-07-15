@@ -1,0 +1,28 @@
+'Figurative','People','Human','Couple','Romantic','Love' ,'Paintings Fashion','Glamour Paintings', 'Tibal Paintings' ,'Mother & Baby' ,'Baby',
+'Landscape','Seascape','Cityscape',
+'Nature','Forest','Scenery Ship Sea','Beach City Paintings Tree', 'Botanical Paintings Sunrise','Sunset','Raining Walkaway', 'Road Paintings'
+'Birds','Animals','Fishes',
+,'Horses Paintings','WildLife Paintings', 'Birds', 'Fishes', 'Dogs',
+'Pure Abstract', 'Paintings GeoMetric'
+
+
+  # def dummy():
+    #     a = ['Figurative','People','Human','Couple','Romantic','Love' ,'Paintings Fashion','Glamour Paintings', 'Tibal Paintings' ,'Mother & Baby' ,'Baby',
+    #         'Landscape','Seascape','Cityscape',
+    #         'Nature','Forest','Scenery Ship Sea','Beach City Paintings Tree', 'Botanical Paintings Sunrise','Sunset','Raining Walkaway', 'Road Paintings'
+    #         'Birds','Animals','Fishes',
+    #         'Horses Paintings','WildLife Paintings', 'Birds', 'Fishes', 'Dogs',
+    #         'Pure Abstract', 'Paintings GeoMetric']
+    #     print(a)
+    #     for i in a:
+    #         c.execute("INSERT INTO `category` (`categoryname`) VALUES ('{}')".format(i))
+    #         conn.commit()
+    #         #INSERT INTO `category`(`id`, `categoryname`) VALUES ([value-1],[value-2])
+    #         print(i)
+    # dummy()
+
+
+'Alappuzha','Ernakulam','Idukki','Kannur','Kasaragod','Kollam','Kottayam','Kozhikode','Malappuram','Palakkad','Pathanamthitta','Thiruvananthapuram','Thrissur','Wayanad',
+
+
+        #return HttpResponseRedirect("/artist/artistdash/profile",{'userdata': userdata})

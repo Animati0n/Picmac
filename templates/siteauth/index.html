@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal webiste</title>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'siteauth/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="inner-width">
+      <a href="/" class="logo">PicMac</a>
+      <div class="dropcon">
+        <button type="submit" class="dropbtn" onclick="myFunction(temp=1)" id="drop_btn">Arts Catogery</button>
+      </div>
+      <div class="search-box">
+        <form action="/customer/searchResult" method="post">
+          {% csrf_token %}
+          <input type="text" name="keyword" id="" class="search-txt" placeholder="Search Arts">
+          <button type="submit" class="search-btn" name="searchbtn"><i class="fas fa-search"></i></button>
+        </form>
+      </div>
+     
+      <button class="menu-toggler">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="navbar-menu">
+        <a href="#home" onclick="myfun(temp=1)" id="l1" class="current">Home</a>
+        <a href="#Arts" onclick="myfun(temp=2)" id="l2">Arts</a>
+        <!-- <a href="#service" onclick="myfun(temp=3)" id="l3">Services</a> -->
+        <!-- <a href="#" onclick="myfun(temp=4)" id="l4">Feedback</a> -->
+        {% if not username %}
+        <a href="/signup">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+ <div class="artscato" id="cato">
+    <h2>Arts&Paintings</h2>
+    <div class="cato_wrapper">
+      <div class="inlinecs">
+        <a href="/customer/searchResult?keyword=Figurative">Figurative</a>
+        <a href="/customer/searchResult?keyword=People">People</a>
+        <a href="/customer/searchResult?keyword=Couple">Couple</a>
+        <a href="/customer/searchResult?keyword=Romantic">Romantic</a>
+        <a href="/customer/searchResult?keyword=Love">Love</a>
+        <a href="/customer/searchResult?keyword=Paintings Fashion">Paintings Fashion</a>
+        <a href="/customer/searchResult?keyword=Glamour Paintings">Glamour Paintings</a>
+        <a href="/customer/searchResult?keyword=Tibal Paintings">Tibal Paintings</a>
+        <a href="/customer/searchResult?keyword=Mother & Baby">Mother & Baby</a>
+        <a href="/customer/searchResult?keyword=Baby">Baby</a>
+        <a href="/customer/searchResult?keyword=Landscape">Landscape</a>
+        <a href="/customer/searchResult?keyword=Seascape">Seascape</a>
+        <a href="/customer/searchResult?keyword=Cityscape">Cityscape</a>
+        <a href="/customer/searchResult?keyword=Nature">Nature</a>
+        <a href="/customer/searchResult?keyword=Forest">Forest</a>
+        <a href="/customer/searchResult?keyword=Scenery Ship Sea">Scenery Ship Sea</a>   
+
+    </div>
+    <div class="inlinecs">
+        <a href="/customer/searchResult?keyword=Beach City Paintings Tree">Beach City Paintings Tree</a>
+        <a href="/customer/searchResult?keyword=Botanical Paintings Sunrise">Botanical Paintings Sunrise</a>   
+
+        <a href="/customer/searchResult?keyword=Sunset">Sunset</a>   
+
+        <a href="/customer/searchResult?keyword=Raining Walkaway">Raining Walkaway</a>   
+
+        <a href="/customer/searchResult?keyword=Road PaintingsBirds">Road PaintingsBirds</a>   
+
+        <a href="/customer/searchResult?keyword=Animals">Animals</a>   
+
+        <a href="/customer/searchResult?keyword=Fishes">Fishes</a>
+        <a href="/customer/searchResult?keyword=Horses Paintings">Horses Paintings</a>   
+
+    </div>
+        
+    </div> 
+   <button type="submit" class="closedrop" onclick="myFunction(temp=2)">Click</button>
+ </div>
+  <!-- Home -->
+  <section id="home">
+    <div class="inner-width">
+      <div class="content">
+        <h1> </h1>
+       
+      </div>
+    </div>
+  </section>
+
+ <section id="Arts">
+  <h1 class="section-title">Arts</h1>
+
+  <div class="wrapper">
+    <div class="cards_wrap">
+
+
+      {% for i in artList %}
+      <div class="card_item">
+        <div class="card_inner">
+          <div class="card_top works">
+            <div class="textdiv">
+              <img src={{i.imageUrl}} alt="car" class="center"/>
+            </div>
+            <div class="info">
+             <form action="/customer/quickView" method="post">
+              {% csrf_token %}
+
+              <input type="hidden" value={{i.id}} name="artId">
+               <input type="submit" value="Quick View" name="quickView">
+             </form>
+             <form action="/customer/booknow" method="post">
+               {% csrf_token %}
+              <input type="hidden" value="{{ i.id }}" name="artid">
+              <input type="submit" value="Book" name="booknowbtn">
+            </form>
+            <form action="/customer/requestnow" method="post">
+              {% csrf_token %}
+
+              <input type="hidden" value={{i.id}} name="artId">
+              <input type="submit" value="Request" name="requestBtn">
+            </form>
+            </div>
+          </div>
+          <div class="card_bottom">
+            <div class="card_category">
+              {{ i.artName }} 
+              <div class="text-muted">Category: {{i.catname}}</div>
+            </div>
+            <h3 class="realprice">
+              <i class="fas fa-rupee-sign"></i></i>{{i.price}}
+            </h3>
+            <div class="card_info">
+              <p class="title">{{i.height}} x {{i.width}} {{i.dimension}}</p>
+              <p class="discription">
+                {{i.discription}}
+              </p>
+            </div>
+            <div class="card_creator">
+              By {{i.firstName}} {{i.lastName}}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+
+      
+
+
+      
+
+
+
+
+    </div>
+  </div>
+<!-- <div class="moreart">
+  <button type="submit">More Arts</button>
+</div> -->
+ </section>
+ <!-- {% if userType == 3 %} -->
+ <section id="service">
+  <h1 class="section-title">Services</h1>
+  <div class="sellartcon">
+    
+    <p class="selldis">
+      If you are an artist you can sell art to click the "Sell Arts"
+      <form action="" method="post">
+        {% csrf_token %} 
+        <button type="submit" class="sellartbtn" name="sellanart">Sell Art</button>
+      </form>
+    </p>
+      
+  
+  </div>
+ </section>
+ <!-- {% endif %} -->
+  <script>
+    function myFunction(temp) {
+       var cotcon = document.getElementById("cato");
+       var dropbtn=document.getElementById("drop_btn");
+       if (temp==1) {
+         cotcon.classList.add("text");
+         dropbtn.classList.add("texclass");
+       }else{
+        cotcon.classList.remove("text");
+        dropbtn.classList.remove("texclass");
+       }
+       
+    }
+    function myfun(temp) {
+      var l1 = document.getElementById("l1");
+      var l2 = document.getElementById("l2");
+      var l3 = document.getElementById("l3");
+      var l4 = document.getElementById("l4");
+      if (temp==1) {
+        l1.classList.add("current");
+        l2.classList.remove("current");
+        l3.classList.remove("current");
+        l4.classList.remove("current"); 
+      }else if (temp==2) {
+        l2.classList.add("current");
+        l1.classList.remove("current");
+        l3.classList.remove("current");
+        l4.classList.remove("current"); 
+      }else if (temp==3) {
+        l3.classList.add("current");
+        l1.classList.remove("current");
+        l2.classList.remove("current");
+        l4.classList.remove("current"); 
+      }else if (temp==4) {
+        l4.classList.add("current");
+        l1.classList.remove("current");
+        l3.classList.remove("current");
+        l2.classList.remove("current"); 
+      }
+   }
+    </script>
+</body>
+</html>

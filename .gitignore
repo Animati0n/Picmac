@@ -1,0 +1,9 @@
+myenv
+AMD
+.vscode
+__pycache__
+media
+.env
+.gitlab-ci.yml
+picmacdjango.sql
+db.sqlite3

@@ -1,0 +1,141 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'siteauth/loginstyle.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="temp" id="temp">
+        {{temp}}
+    </div>
+    <div class="container_fluid">
+        <div class="container1" id="con1">
+            {% if msg %}
+            <div class="error">
+              <p class="errormsg">{{msg}}</p>
+            </div>
+            {% endif %}
+            <h2 class="logo">
+                PicMac
+            </h2>
+            <h2 class="text2">
+                Sign in to Picmac
+            </h2>
+            <h2 class="text3">
+                Sign in with your email id to book and sell an Art
+            </h2>
+            <div class="emailcon">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="email" name="username" id="username" placeholder="enter your email" required>
+                   
+                    <button type="submit" id="nextbtn" name="unamesubmit">Next</button>
+                </form>
+            </div>
+        </div>
+        <div class="container2" id="con2">
+            {% if msg %}
+            <div class="error">
+                <p class="errormsg">{{msg}}</p>
+            </div>
+            {% endif %}
+            <h2 class="logo">
+                PicMac
+            </h2>
+            <h2 class="text3">
+                Otp send to {{username}}
+            </h2>
+            <div class="otpcon">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    <input type="text" name="otp" id="" placeholder="Enter otp">
+                    <input type="text" name="username" id="uname" style="display: none;" value={{username}}>
+                    <button type="submit" id="backbtn" class="backbtn" name="back">Back</button>
+                    <button type="submit" class="nextbtn" name="otpsubmit">Next</button>
+                </form>
+            </div>
+            
+        </div>
+        <div class="container3" id="con3">
+            {% if msg %}
+            <div class="error">
+                <p class="errormsg">{{msg}}</p>
+            </div>
+            {% endif %}
+            <h2 class="logo">
+                PicMac
+            </h2>
+            <h2 class="text3">
+                Email verification succes 
+            </h2>
+            <h2 class="text3">
+                Please enter your password for login 
+            </h2>
+            
+            <div class="passwordcon">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% if paswordType and paswordType == 1 %}
+                    <input type="hidden" value={{username}} name="username">
+                    <input type="password" name="password" id="" placeholder="Password">
+                    <input type="password" name="cpassword" id="" placeholder="Confirm password">
+                    {% endif %}
+                    {% if paswordType and paswordType == 2 %}
+                    <input type="hidden" value={{username}} name="username">
+                    <input type="password" name="password" id="" placeholder="Password">
+                    {% endif %}
+
+                    {% if paswordType and paswordType == 1 %}
+                    <button type="submit"  name="register">submit</button>  
+                    {% endif %}
+
+                    {% if paswordType and paswordType == 2 %}
+                    <button type="submit"  name="login">Login</button>  
+                    {% endif %}
+                </form>
+                         
+             </div>
+        </div>
+
+        
+    
+    </div>
+    <script>
+        let temp;
+        var tempdiv=document.getElementById("temp");
+        temp=tempdiv.innerText;
+        console.log(typeof temp);
+         
+        myfun(temp); 
+        function myfun(temp) {
+
+            console.log(temp);
+            var first=document.getElementById("con1");
+            var second=document.getElementById("con2");
+            var third=document.getElementById("con3");
+         
+            if (parseInt(temp)==1) {
+                console.log(temp);
+              first.style.left="-50%";
+              second.style.left="50%"; 
+            }
+            if (parseInt(temp)==3) {
+                console.log(temp);
+                first.style.left = "-100%";
+                second.style.left="-50%";
+                third.style.left="50%";
+            }
+            if (parseInt(temp)==2) {
+                console.log(temp);
+                second.style.left="150%";
+                first.style.left="50%";
+            }
+        }
+    </script>
+</body>
+</html>

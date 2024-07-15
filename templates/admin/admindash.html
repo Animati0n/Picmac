@@ -1,0 +1,628 @@
+
+
+<!DOCTYPE html>
+{% load static%}
+<!-- Designined by CodingLab | www.youtube.com/codinglabyt -->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <title>PicMac</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap-4.3.1.css' %}">
+  <link rel="stylesheet" href="{% static 'css/admindash.css' %}">
+  <!-- Boxicons CDN Link -->
+ 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picmac | Admin dash</title>
+</head>
+
+<body>
+ <div class="" id="tempdiv" style="display: none;">{{page}}</div>
+  <div class="sidebar">
+    <div class="logo-details">
+      <span class="logo_name">PicMac</span>
+    </div>
+    <form action="" method="get">
+      <ul class="nav-links">
+        <li>
+          <a class="link1" href="/admin1/">
+            <p >
+                <i class='bx bx-list-ul'></i>
+              <h4 class="sidetext" >Artist List</h4> 
+            </p>
+           
+          </a>
+        </li>
+        <li>
+          <a class="link1" href="transaction">
+            <p >
+                <i class='bx bx-transfer-alt'></i>
+              <h4 class="sidetext" >Transactions</h4> 
+            </p>
+          </a>
+
+        </li>
+        <li>
+          <a class="link1" href="newartuploads">
+            <p >
+                <i class='bx bx-upload'></i>
+              <h4 class="sidetext" >New Arts Uploads</h4> 
+            </p>
+            
+           
+          </a>
+        </li>
+        <li>
+          <a class="link1" href="allarts">
+            <p >
+                <i class='bx bx-image'></i>
+              <h4 class="sidetext" >All Arts</h4> 
+            </p>
+            
+          </a>
+        </li>
+        <li class="">
+          <a href="/logout">
+            <i class='bx bx-log-out'></i>
+            <h4 class="sidetext logout">Logout</h4> 
+           
+          </a>
+        </li>
+      </ul>
+    </form>
+  </div>
+
+  <!-- Mystore -->
+
+  <section id="first" class="firstsec">
+    <div class="maincon">
+      <h1 class="section-title">Artist List</h1>
+      <div class="container">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Artist Name</th>
+            <th scope="col">Plan</th>
+            <th scope="col">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for i in userslist%}
+          <tr>
+            <td>{{i.firstName}} {{i.lastName}}</td>
+            <td>{{i.subname}}</td>
+            <td>{{i.subdate}} -> {{i.expiredate}} </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+      
+      
+      </div>
+
+
+    </div>
+    
+  </section>
+
+
+  <!-- my-earnings -->
+  <section id="second1" class="secnsec">
+    <div class="maincon">
+
+        <h1 class="section-title">Transactions</h1>
+        <div class="container">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Artist Name</th>
+                  <th scope="col">Plan</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Payment Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in transactions %}
+                <tr>
+                  <td>{{ i.firstName }} {{ i.lastName }}</td>
+                  <td>{{ i.subname }}</td>
+                  <td>{{ i.subdate }} - {{ i.expiredate }}</td>
+                  <td>{{ i.price }}</td>
+                  <td>Online Payment</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            
+            
+            </div>
+      
+
+
+    </div>
+    
+  </section>
+ 
+
+
+  <!-- Subscription -->
+  
+  <section id="third" class="thridsec">
+    <div class="maincon">
+
+
+      <h1 class="section-title">New Arts</h1>
+    <div class="container">
+        <div class="wrapper">
+            <div class="cards_wrap">
+              {% for i in newArts %}
+                <div class="card_item">
+                    <div class="card_inner">
+                      <div class="card_top works">
+                        <div class="textdiv">
+                          <img src="{{i.imageUrl}}" alt="car" class="center"/>
+                        </div>
+                        <div class="info">
+          
+                          <form action="" method="get">
+                            <input type="hidden" >
+                            <!-- <input type="submit" value="Edit" name="edit" id="anger" onclick="Myfun(temp=6)"> -->
+                          </form>
+                        </div>
+                      </div>
+                      <div class="card_bottom">
+                        <div class="card_category">
+                          {{i.artName}}
+                          <h3 class="realprice">
+                            <i class="fa fa-inr" aria-hidden="true"></i>
+                            {{i.price}}
+                          </h3>
+                          <!-- <div class="offerset">
+                          
+                          <h3 class="priceoff">
+                            <i class="fa fa-inr" aria-hidden="true"></i>6000
+                          </h3>
+                          <h3 class="offerpersen">
+                            -50% off
+                          </h3>
+                        </div> -->
+                        </div>
+                        <div class="card_info">
+                          <p class="title text-center">
+                           {{i.width}}x{{i.height}}{{i.dimension}}
+                          </p>
+                          <p class="discription1 text-center">
+                            {{i.discription}}
+                          </p>
+                        </div>
+                        <div class="card_creator">
+                          <form action="" method="post" class="action">
+                            {% csrf_token %}
+                            <input type="text" name="id" value={{i.id}} hidden>
+                            <input type="submit" value="Approve" name="aprvart" class="app-btn">
+                            <input type="submit" value="Delete" name="delete_art">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {%endfor%}
+                  <!--  -->
+            </div>
+        </div>        
+
+    </div>
+
+
+
+
+
+    </div>
+  </section>
+
+
+
+  <!-- Requests -->
+
+  <section id="fourth" class="fourthsec">
+    <div class="maincon">
+        <h1 class="section-title">All Arts</h1>
+        
+    <div class="container">
+        <div class="wrapper">
+            <div class="cards_wrap">
+              {%for i in allArtslist %}
+                <div class="card_item">
+                    <div class="card_inner">
+                      <div class="card_top works">
+                        <div class="textdiv">
+                          <img src="{{i.imageUrl}}" alt="car" class="center"/>
+                        </div>
+                        <div class="info">
+          
+                          <form action="" method="get">
+                            <input type="hidden" >
+                            <!-- <input type="submit" value="Edit" name="edit" id="anger" onclick="Myfun(temp=6)"> -->
+                          </form>
+                        </div>
+                      </div>
+                      <div class="card_bottom">
+                        <div class="card_category">
+                          {{i.artName}}
+                          <h3 class="realprice">
+                            <i class="fa fa-inr" aria-hidden="true"></i>
+                            {{i.price}}
+                          </h3>
+                          <!-- <div class="offerset">
+                          
+                          <h3 class="priceoff">
+                            <i class="fa fa-inr" aria-hidden="true"></i>6000
+                          </h3>
+                          <h3 class="offerpersen">
+                            -50% off
+                          </h3>
+                        </div> -->
+                        </div>
+                        <div class="card_info">
+                          <p class="title text-center">
+                           {{i.width}}x{{i.height}} {{i.dimension}}
+                          </p>
+                          <p class="discription1 text-center">
+                            {{i.discription}}
+                          </p>
+                        </div>
+                        <div class="card_creator">
+                          <form action="" method="post" class="action">
+                            {% csrf_token %}
+                            <input type="text" name="id" value={{i.id}} hidden>
+                            <input type="submit" value="Delete" name="deleteart">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {%endfor%}
+                  <!-- <div class="card_item">
+                    <div class="card_inner">
+                      <div class="card_top works">
+                        <div class="textdiv">
+                          <img src="uploadimages/1.jpg" alt="car" class="center"/>
+                        </div>
+                        <div class="info">
+          
+                          <form action="" method="get">
+                            <input type="hidden" >
+                            <input type="submit" value="Edit" name="edit" id="anger" onclick="Myfun(temp=6)"> 
+                          </form>
+                        </div>
+                      </div>
+                      <div class="card_bottom">
+                        <div class="card_category">
+                          artname
+                          <h3 class="realprice">
+                            <i class="fa fa-inr" aria-hidden="true"></i>
+                            60000
+                          </h3>
+                          <div class="offerset">
+                          
+                          <h3 class="priceoff">
+                            <i class="fa fa-inr" aria-hidden="true"></i>6000
+                          </h3>
+                          <h3 class="offerpersen">
+                            -50% off
+                          </h3>
+                        </div> 
+                        </div>
+                        <div class="card_info">
+                          <p class="title text-center">
+                           150x150cm
+                          </p>
+                          <p class="discription1 text-center">
+                            vjddbvi  hvhka ga ,k eufgwef w
+                          </p>
+                        </div>
+                        <div class="card_creator">
+                          <form action="" method="get" class="action">
+                            <input type="submit" value="Delete" name="delete_art">
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+            </div>
+        </div>        
+
+    </div>
+
+
+    </div>
+   
+  </section>
+
+  <!-- Myprofile -->
+ 
+  <section id="fifth" class="fifthsec">
+    <div class="maincon">
+
+      <h1 class="section-title">My Profile</h1>
+    <div class="profilediv">
+      <img src="images/profile.png" class="profile">
+    </div>
+    <div class="container">
+      <div class="myprofile_form_div">
+        <form method="post">
+          <div class="row form-group">
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="fname" placeholder="First name" value=""
+                 required>
+            </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="lname" placeholder="Last name" value=""
+                 required>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+              <input type="email" class="form-control" name="email" placeholder="Email" value="" required>
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" class="form-control" name="phno" placeholder="Phone Number" value="" required>
+            </div>
+          </div>
+          <br>
+          <label for=""> Date of Birth</label>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <input type="date" class="form-control" name="dob" id="" placeholder="Date of birth" value=""
+                >
+            </div>
+          </div>
+          <br>
+          <div class="form-group ">
+            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="2"
+              placeholder="Adress"></textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              
+              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="dis">
+                <option selected value="0">District</option>
+                <option value="Alappuzha">Alappuzha</option>
+                <option value="Ernakulam">Ernakulam</option>
+                <option value="Idukki">Idukki</option>
+                <option value="Kannur">Kannur</option>
+                <option value="Kasaragod">Kasaragod</option>
+                <option value="Kollam">Kollam</option>
+                <option value="Kottayam">Kottayam</option>
+                <option value="Kozhikode">Kozhikode</option>
+                <option value="Malappuram">Malappuram</option>
+                <option value="Palakkad">Palakkad</option>
+                <option value="Pathanamthitta">Pathanamthitta</option>
+                <option value="Thiruvananthapuram">Thiruvananthapuram</option>
+                <option value="Thrissur">Thrissur</option>
+                <option value="Wayanad">Wayanad</option>
+
+              </select>
+            </div>
+            <div class="col-md-6">
+             <select class='custom-select mr-sm-2' id='inlineFormCustomSelect' name='dis'>
+             
+                <option selected value='$val'>$val</option>
+              
+                <option value='$val'>$val</option>
+               </select>
+            
+
+            </div>
+            <!-- <div class="col-md-6">
+            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+              <option selected>State</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </select>
+          </div> -->
+
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+              <input type="submit" value="Submit" style="width: 100%;" name="profUpdate">
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+
+    </div>
+  </section>
+ 
+  <!-- view edit section -->
+  
+  <section id="sixth" class="sixthsec">
+    <div class="maincon">
+
+      <h1 class="section-title">View</h1>
+    <div class="container">
+      <div class="inner_container">
+        <form action="" method="POST"
+          enctype="multipart/form-data">
+
+          <div class="row">
+            <div class="col-md-6 ">
+
+              <div class="imagediv">
+                <img src="uploadimages/7.jpg" alt="" srcset="" class="center">
+              </div>
+              <div class="changeimage">
+                <input type="file" name="artimage" id="file2" value="pic image" accept="image/*">
+                <label for="file2"><img src="images/camera (1).png"
+                    style=" width:60px; height: 60px; cursor: pointer;"></label>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="artname">
+                <label>Art name</label>
+                <div class="inputedit">
+                  <input type="text" name="artname" id="" value="" required>
+                  <input type="hidden" name="artId" value="" >
+
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Price</label>
+                <div class="inputedit">
+                  <input type="text" name="artprice" id="" value="" required >
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Width</label>
+                <div class="inputedit">
+                  <input type="text" name="artwidth" id="" value="" required >
+                </div>
+              </div>
+              <div class="artname">
+                <label>Height</label>
+                <div class="inputedit">
+                  <input type="text" name="artheight" id="" value="" required>
+                </div>
+              </div>
+              <div class="artname">
+                <label>Diamention</label>
+                <div class="inputedit">
+                  <select class="custom-select" name="artdiatype" required>
+                    <option selected value="0">Select Dimension type</option>
+                    <option value="in">Inch</option>
+                    <option value="cm">Centimeter</option>
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Type</label>
+                <div class="inputedit">
+
+                  <select class="custom-select" id="validationCustom04" required name="catogery">
+
+                   <option selected value='$catid'>$catogey</option>
+                   <option value='$catid'>$catogey</option>
+                  
+
+                  </select>
+                </div>
+              </div>
+
+              <div class="artname">
+                <label>Discription</label>
+                <div class="inputedit">
+                  <textarea name="discription" id="" rows="2"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row" style="margin-top: 50px;">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 editsubmit">
+              <input type="submit" value="Submit" style="width: 100%;" name="editSub">
+            </div>
+            <div class="col-md-3"></div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+
+   <script>
+   try{document.getElementById("anger").addEventListener("click", function(event){
+   event.preventDefault()
+    });}
+    catch{
+
+    }
+    let temp = document.getElementById("tempdiv").innerText;
+    temp=parseInt(temp)
+      console.log(temp);
+            console.log(temp);
+            var sec1=document.getElementById("first");
+            var sec2=document.getElementById("second1");
+            var sec3=document.getElementById("third");
+            var sec4=document.getElementById("fourth");
+            var sec5=document.getElementById("fifth");
+            var sec6=document.getElementById("sixth");
+            if (temp==1) {
+                sec1.style.display="block";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none"; 
+            
+            }else if (temp==2) {
+                sec2.style.display="block";
+                sec1.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none";
+            }else if (temp==3) {
+                sec3.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none";
+            }else if (temp==4) {
+                sec4.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec5.style.display="none";
+                sec6.style.display="none";
+            }
+            else if (temp==5) {
+                sec5.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec6.style.display="none";
+            }else if (temp==6) {
+                sec6.style.display="block";
+                sec1.style.display="none";
+                sec2.style.display="none";
+                sec3.style.display="none";
+                sec4.style.display="none";
+                sec5.style.display="none";
+            }
+    
+
+
+
+
+
+  </script> 
+ 
+
+
+</body>
+
+</html>
